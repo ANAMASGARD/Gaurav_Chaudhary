@@ -12,26 +12,39 @@ function App() {
   useGSAP(() => {
     const tl = gsap.timeline();
 
-    tl.to(".vi-mask-group", {
-      rotate: 70,
-      duration: 2,
-      ease: "Power4.easeInOut",
+    // Start centered, slightly small and hidden
+    gsap.set(".vi-mask-group", {
       transformOrigin: "50% 50%",
-    }).to(".vi-mask-group", {
-      scale: 10,
-      duration: 2,
-      delay: -1.8,
-      ease: "Expo.easeInOut",
-      transformOrigin: "50% 50%",
+      scale: 0.6,
       opacity: 0,
-      onUpdate: function () {
-        if (this.progress() >= 0.9) {
-          document.querySelector(".svg").remove();
-          setShowContent(true);
-          this.kill();
-        }
-      },
     });
+
+    // 1) Appear in the center
+    tl.to(".vi-mask-group", {
+      opacity: 1,
+      scale: 1,
+      duration: 0.7,
+      ease: "power2.out",
+    })
+      // 2) Then enlarge (grow) smoothly
+      .to(
+        ".vi-mask-group",
+        {
+          scale: 10,
+          opacity: 0,
+          duration: 1,
+          ease: "expo.inOut",
+          onUpdate: function () {
+            if (this.progress() >= 0.9) {
+              const overlay = document.querySelector(".svg");
+              if (overlay) overlay.remove();
+              setShowContent(true);
+              this.kill();
+            }
+          },
+        },
+        "+=0.1"
+      );
   });
 
   useGSAP(() => {
@@ -157,26 +170,44 @@ function App() {
                   <div className="line w-8 h-2 bg-white"></div>
                   <div className="line w-5 h-2 bg-white"></div>
                 </div>
-                <h3 className="text-4xl -mt-[8px] leading-none text-white">
-                  Rockstar
+                <h3 className="text-3xl -mt-[8px] leading-none text-white font-pricedown ">
+                  Namaste
                 </h3>
               </div>
             </div>
 
-            <div className="imagesdiv relative overflow-hidden w-full h-dvh">
+            {/* Wanted badge top-right (aligned with navbar padding) */}
+            <div className="absolute right-5 z-[20] pointer-events-none select-none">
               <img
-                className="absolute sky scale-[1.5] rotate-[-18deg] top-0 left-0 w-full h-full object-cover transform-gpu will-change-transform"
-                src="/images/sky-v1.png"
-                alt="Sky backdrop"
+                src="/images/wanted-v2.webp"
+                alt="Wanted level"
+                className="w-[clamp(90px,16vw,160px)] h-auto drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
+                loading="eager"
+                decoding="async"
               />
+            </div>
+
+            {/* GTA radar bottom-right */}
+            <div className="absolute bottom-3 right-3 md:bottom-5 md:right-5 z-[20] pointer-events-none select-none">
+              <img
+                src="/images/gta-radar.webp"
+                alt="GTA radar"
+                className="w-[clamp(110px,20vw,220px)] h-auto drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+
+            <div className="imagesdiv relative overflow-hidden w-full h-dvh">
+             
               <img
                 className="absolute scale-[1.7] rotate-[-3deg] bg top-0 left-0 w-full h-full object-cover transform-gpu will-change-transform"
-                src="/images/gta-bg-v2.png"
+                src="/images/gta-bg-v3.webp"
                 alt="City backdrop"
               />
-              <div className="text text-white flex flex-col gap-2 md:gap-3 absolute top-[8%] md:top-20 left-1/2 -translate-x-1/2 md:scale-[1.2] scale-[1] rotate-[-8deg] md:rotate-[-10deg]">
-                <h1 className="font-round-bold text-[clamp(3rem,12vw,12rem)] leading-none -ml-8 md:-ml-40 text-center">Gaurav    </h1>
-                <h1 className="font-round-bold text-[clamp(3rem,12vw,12rem)] leading-none ml-6 md:ml-20 text-center">     Chaudhary</h1>
+              <div className="text text-white font-pricedown flex flex-col gap-2 md:gap-3 absolute top-[8%] md:top-20 left-1/2 -translate-x-1/2 md:scale-[1.2] scale-[1] rotate-[-8deg] md:rotate-[-10deg]">
+                <h1 className="text-[clamp(3rem,12vw,12rem)] leading-none -ml-8 md:-ml-40 text-center">gauRav</h1>
+                <h1 className="text-[clamp(3rem,12vw,12rem)] leading-none ml-6 md:ml-20 text-center">chaudhary</h1>
                 
               </div>
               {/* subtle ground shadow (mobile larger) */}
@@ -204,15 +235,15 @@ function App() {
               <div className="character-wrap absolute left-0 right-0 bottom-0 flex justify-center items-end">
                 <img
                   className="z-20 character rotate-[-8deg] object-contain pointer-events-none transform-gpu will-change-transform drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)] h-[82vh] max-h-[92vh] w-auto max-w-[92vw] md:w-[clamp(320px,62vw,1100px)] md:h-auto md:max-h-[85vh]"
-                  src="/images/gaurav-gta6-v2.png"
+                  src="/images/gaurav-gta6-v2.webp"
                   alt="Gaurav GTA6 styled character"
                 />
               </div>
             </div>
             <div className="btmbar text-white absolute bottom-0 left-0 w-full py-15 px-10 bg-gradient-to-t from-black to-transparent z-10">
               <div className="flex items-center">
-                <h3 className="flex items-center gap-2 text-xl font-[Helvetica_Now_Display]">
-                  Scroll Down
+                <h3 className="flex items-center gap-2 text-xl font-pricedown">
+                  ScRoLL Down
                   <span className="inline-flex w-6 h-6 md:w-7 md:h-7" aria-hidden="true">
                     <CircleArrowDown />
                   </span>

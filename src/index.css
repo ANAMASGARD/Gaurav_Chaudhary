@@ -16,10 +16,30 @@
   src: url("/fonts/round-bold.woff");
 }
 
+/* GTA "Pricedown Black" display font */
+@font-face {
+  font-family: "Pricedown Black";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/pricedown bl.ttf") format("truetype");
+}
+
+/* GTA "Pricedown Black" display font */
+@font-face {
+  font-family: "Pricedown Black";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/pricedown bl.ttf") format("truetype");
+}
+
 @theme {
   --font-sans: "Round", sans-serif;
   --font-long: "Long", sans-serif;
   --font-round-bold: "Round Bold", sans-serif;
+  --font-pricedown: "Pricedown Black", "Round Bold", "Round", sans-serif;
+  --font-pricedown: "Pricedown Black", "Round Bold", "Round", sans-serif;
   --color-yellow: #fff9cb;
   --color-pink: #ffb0c4;
   --breakpoint-sm: 40rem;
@@ -56,6 +76,9 @@ main {
   }
   .abs-center {
     @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+  .font-pricedown {
+    font-family: "Pricedown Black", "Round Bold", "Round", sans-serif;
   }
 }
 
