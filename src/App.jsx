@@ -5,6 +5,11 @@ import CircleArrowDown from "./components/icons/CircleArrowDown";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 
+import BookAction from "./sections/BookAction";
+import HeroText from "./sections/HeroText";
+import { Book } from "lucide-react";
+
+
 function App() {
   let [showContent, setShowContent] = useState(false);
   const [showMobilePrompt, setShowMobilePrompt] = useState(false);
@@ -130,6 +135,7 @@ function App() {
 
   return (
     <>
+      
       <div className="svg flex items-center justify-center fixed top-0 left-0 z-[100] w-full h-dvh overflow-hidden bg-[#000]">
         <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
           <defs>
@@ -206,7 +212,7 @@ function App() {
                 alt="City backdrop"
               />
               <div className="text text-white font-pricedown flex flex-col gap-2 md:gap-3 absolute top-[8%] md:top-20 left-1/2 -translate-x-1/2 md:scale-[1.2] scale-[1] rotate-[-8deg] md:rotate-[-10deg]">
-                <h1 className="text-[clamp(3rem,12vw,12rem)] leading-none -ml-8 md:-ml-40 text-center">gauRav</h1>
+                <h1 className="text-[clamp(3rem,12vw,12rem)] leading-none -ml-8 md:-ml-40 text-center">gaurav</h1>
                 <h1 className="text-[clamp(3rem,12vw,12rem)] leading-none ml-6 md:ml-20 text-center">chaudhary</h1>
                 
               </div>
@@ -251,7 +257,19 @@ function App() {
               </div>
             </div>
           </div>
+          <main>
+            <div className="w-full h-screen ">
+              <HeroText />
+
+            </div>
+            <div className="w-full h-screen ">
+              <BookAction />
+
+            </div>
+          </main>
+          
         </div>
+       
       )}
 
       {showContent && showMobilePrompt && (
@@ -288,6 +306,8 @@ function App() {
             </div>
           </div>
         </div>
+
+   
       )}
     </>
   );

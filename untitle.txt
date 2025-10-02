@@ -1,0 +1,11 @@
+ <img src="/images/hero-bg.webp" 
+        alt="Hero Background" 
+        className="scale-out" />
+        <img src="/images/hero-text.webp" 
+        alt="Hero Text" 
+        className="title-logo fade-out" />
+        
+          <img src="/public/images/logo.webp" 
+          alt="logo"
+          className="entrance-logo fade-out" />
+        
