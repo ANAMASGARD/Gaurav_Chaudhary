@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 
-const BookAction = () => {
+const ResumeAction = () => {
   return (
     <section className="hero-section">
       <div className="size-full  ">
@@ -40,4 +40,4 @@ const BookAction = () => {
   )
 }
 
-export default BookAction
+export default ResumeAction

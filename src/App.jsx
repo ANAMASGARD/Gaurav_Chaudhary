@@ -5,9 +5,12 @@ import CircleArrowDown from "./components/icons/CircleArrowDown";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 
-import BookAction from "./sections/BookAction";
+import ResumeAction from "./sections/ResumeAction";
 import HeroText from "./sections/HeroText";
-import { Book } from "lucide-react";
+import Final from "./sections/Final";
+import AudioPlayer from "./components/AudioPlayer";
+
+
 
 
 function App() {
@@ -263,12 +266,17 @@ function App() {
 
             </div>
             <div className="w-full h-screen ">
-              <BookAction />
-
+              <ResumeAction />
+               
             </div>
-          </main>
-          
-        </div>
+            </main>
+       <div className=" ">
+       <Final />
+               
+      </div>
+      {/* persistent audio player */}
+      <AudioPlayer />
+    </div>
        
       )}
 
