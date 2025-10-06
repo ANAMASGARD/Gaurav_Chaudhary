@@ -18,41 +18,82 @@ function App() {
   const [showMobilePrompt, setShowMobilePrompt] = useState(false);
   const MOBILE_PROMPT_KEY = "gc_mobile_prompt_dismissed";
   useGSAP(() => {
-    const tl = gsap.timeline();
+    // Delay the intro animation until fonts and key image are ready to avoid layout shift
+    let killed = false;
+    const startIntro = async () => {
+      try { await (document.fonts?.ready || Promise.resolve()); } catch {}
+      // pre-decode hero image
+      await new Promise((resolve) => {
+        const img = new Image();
+        img.src = "/images/hero-bg.webp";
+        if (img.decode) img.decode().then(resolve).catch(resolve);
+        else img.onload = () => resolve();
+      });
+      if (killed) return;
 
-    // Start centered, slightly small and hidden
-    gsap.set(".vi-mask-group", {
-      transformOrigin: "50% 50%",
-      scale: 0.6,
-      opacity: 0,
-    });
+      // Detect likely mask failure (some browsers block mask/text rendering)
+      let useFallback = false;
+      try {
+        const textEl = document.querySelector('.vi-mask-group text');
+        if (!textEl) useFallback = true;
+        else {
+          const bb = textEl.getBBox?.();
+          if (!bb || bb.width < 10 || bb.height < 10) useFallback = true;
+        }
+      } catch {
+        useFallback = true;
+      }
 
-    // 1) Appear in the center
-    tl.to(".vi-mask-group", {
-      opacity: 1,
-      scale: 1,
-      duration: 0.7,
-      ease: "power2.out",
-    })
-      // 2) Then enlarge (grow) smoothly
-      .to(
-        ".vi-mask-group",
-        {
-          scale: 10,
-          opacity: 0,
-          duration: 1,
-          ease: "expo.inOut",
-          onUpdate: function () {
-            if (this.progress() >= 0.9) {
-              const overlay = document.querySelector(".svg");
-              if (overlay) overlay.remove();
-              setShowContent(true);
-              this.kill();
-            }
-          },
-        },
-        "+=0.1"
-      );
+      gsap.set(".svg", { opacity: 1 });
+      if (useFallback) {
+        // Plain-text fallback animation (no masks)
+        gsap.set(".gc-fallback", { opacity: 0, scale: 0.6, display: 'flex' });
+        const tl = gsap.timeline();
+        tl.to(".gc-fallback", { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" })
+          .to(".gc-fallback", {
+            scale: 10,
+            opacity: 0,
+            duration: 1,
+            ease: "expo.inOut",
+            onUpdate: function () {
+              if (this.progress() >= 0.9) {
+                const overlay = document.querySelector(".svg");
+                if (overlay) overlay.remove();
+                setShowContent(true);
+                this.kill();
+              }
+            },
+          }, "+=0.1");
+      } else {
+        // Original mask-based animation
+        gsap.set(".vi-mask-group", { transformOrigin: "50% 50%", scale: 0.6, opacity: 0 });
+        const tl = gsap.timeline();
+        tl.to(".vi-mask-group", { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" })
+          .to(".vi-mask-group", {
+            scale: 10,
+            opacity: 0,
+            duration: 1,
+            ease: "expo.inOut",
+            onUpdate: function () {
+              if (this.progress() >= 0.9) {
+                const overlay = document.querySelector(".svg");
+                if (overlay) overlay.remove();
+                setShowContent(true);
+                this.kill();
+              }
+            },
+          }, "+=0.1");
+      }
+    };
+    // Safety fallback: ensure overlay is removed even if animation stalls
+    const safety = setTimeout(() => {
+      const overlay = document.querySelector(".svg");
+      if (overlay) overlay.remove();
+      setShowContent(true);
+    }, 3500);
+
+    startIntro();
+    return () => { killed = true; clearTimeout(safety); };
   });
 
   useGSAP(() => {
@@ -64,6 +105,8 @@ function App() {
     // Desktop and mobile tailored entrances + parallax
     mm.add("(max-width: 767px)", () => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.6 } });
+      // Ensure headline text starts centered with no residual x offset
+      gsap.set(".main .text", { x: 0 });
       tl.to(".main", { scale: 1, rotate: 0 }, 0)
         .to(".sky", { scale: 1.05, rotate: 0 }, 0)
         .to(".bg", { scale: 1.05, rotate: 0 }, 0)
@@ -88,6 +131,8 @@ function App() {
 
     mm.add("(min-width: 768px)", () => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.8 } });
+      // Ensure headline text starts centered with no residual x offset
+      gsap.set(".main .text", { x: 0 });
       tl.to(".main", { scale: 1, rotate: 0 }, 0)
         .to(".sky", { scale: 1.1, rotate: 0 }, 0)
         .to(".bg", { scale: 1.08, rotate: 0 }, 0)
@@ -140,9 +185,9 @@ function App() {
     <>
       
       <div className="svg flex items-center justify-center fixed top-0 left-0 z-[100] w-full h-dvh overflow-hidden bg-[#000]">
-        <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+        <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <defs>
-            <mask id="viMask">
+            <mask id="viMask" maskUnits="userSpaceOnUse">
               <rect width="100%" height="100%" fill="black" />
               <g className="vi-mask-group">
                 <text
@@ -151,8 +196,9 @@ function App() {
                   fontSize="250"
                   textAnchor="middle"
                   fill="white"
-                  dominantBaseline="middle"
-                  fontFamily="Arial Black"
+                  dominantBaseline="central"
+                  fontFamily="system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif"
+                  fontWeight="900"
                 >
                   GC
                 </text>
@@ -168,6 +214,10 @@ function App() {
              mask="url(#viMask)"
            />
         </svg>
+          {/* Fallback plain text (used if SVG mask fails) */}
+          <div className="gc-fallback absolute inset-0 hidden items-center justify-center select-none">
+            <span className="text-white font-pricedown" style={{ fontSize: '14rem', lineHeight: 1 }}>GC</span>
+          </div>
       </div>
       {showContent && (
         <div className="main w-full rotate-[-8deg] md:rotate-[-10deg] scale-[1.3] md:scale-[1.6]">

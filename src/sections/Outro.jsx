@@ -62,7 +62,7 @@ const Outro = () => {
 
           {/* X (Twitter) */}
           <a
-            href="https://x.com/your-username" // TODO: replace with your X (Twitter) URL
+            href="https://x.com/GauravC18959107/" // TODO: replace with your X (Twitter) URL
             target="_blank"
             rel="noopener noreferrer"
             aria-label="X profile"
