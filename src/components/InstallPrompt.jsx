@@ -76,7 +76,7 @@ const InstallPrompt = () => {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-[240] flex justify-center px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+      className="fixed inset-x-0 bottom-0 z-240 flex justify-center px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
       role="dialog"
       aria-label="Install app"
     >

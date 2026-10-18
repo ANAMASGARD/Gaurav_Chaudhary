@@ -1,9 +1,21 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "paths": {
-      "@/*": ["src/*"]
-    }
-  }
+      "@/*": ["./src/*"],
+      "#apps/*": ["./src/apps/*"],
+      "#components/*": ["./src/components/*"],
+      "#content/*": ["./src/content/*"],
+      "#hoc/*": ["./src/hoc/*"],
+      "#sections/*": ["./src/sections/*"],
+      "#store/*": ["./src/store/*"],
+      "#windows/*": ["./src/windows/*"]
+    },
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "checkJs": true
+  },
+  "include": ["src"]
 }

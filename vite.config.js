@@ -107,7 +107,14 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '#apps': fileURLToPath(new URL('./src/apps', import.meta.url)),
+      '#components': fileURLToPath(new URL('./src/components', import.meta.url)),
+      '#content': fileURLToPath(new URL('./src/content', import.meta.url)),
+      '#hoc': fileURLToPath(new URL('./src/hoc', import.meta.url)),
+      '#sections': fileURLToPath(new URL('./src/sections', import.meta.url)),
+      '#store': fileURLToPath(new URL('./src/store', import.meta.url)),
+      '#windows': fileURLToPath(new URL('./src/windows', import.meta.url)),
+    },
+  },
 })

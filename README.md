@@ -1,3 +1,17 @@
+# Gaurav Chaudhary — Portfolio
+
+GTA-style hero with a macOS desktop shell (dock, Finder, windows).
+
+## macOS icons
+
+UI icons are from [MacTahoe Icon Theme](https://github.com/vinceliuice/MacTahoe-icon-theme) (GPL-3.0). See [public/macos-icons/ATTRIBUTION.md](public/macos-icons/ATTRIBUTION.md). Refresh icons:
+
+```bash
+node scripts/sync-mactahoe-icons.mjs --dark
+```
+
+---
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
