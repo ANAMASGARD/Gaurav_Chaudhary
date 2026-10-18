@@ -19,7 +19,7 @@ const AudioPlayer = ({ src = "/music/gta-music.mp3" }) => {
         // Unmute after playback started — many browsers permit this sequence.
         try {
           audio.muted = false;
-        } catch (e) {
+        } catch {
           // ignore
         }
         setIsPlaying(true);
@@ -31,7 +31,9 @@ const AudioPlayer = ({ src = "/music/gta-music.mp3" }) => {
         const onFirstInteraction = () => {
           try {
             audio.muted = false;
-          } catch (e) {}
+          } catch {
+            // ignore
+          }
           audio.play().then(() => setIsPlaying(true)).catch(() => {});
           window.removeEventListener("pointerdown", onFirstInteraction);
         };
@@ -49,7 +51,7 @@ const AudioPlayer = ({ src = "/music/gta-music.mp3" }) => {
       try {
         await audio.play();
         setIsPlaying(true);
-      } catch (e) {
+      } catch {
         // If play fails, keep the state false — user can interact to allow playback.
         setIsPlaying(false);
       }
@@ -60,8 +62,8 @@ const AudioPlayer = ({ src = "/music/gta-music.mp3" }) => {
     <>
       <audio ref={audioRef} src={src} preload="auto" />
 
-      {/* Persistent audio control (bottom-right) */}
-      <div className="fixed right-6 bottom-6 z-[255]">
+      {/* Persistent audio control (bottom-right, clears the iOS home indicator) */}
+      <div className="fixed right-[calc(1rem+env(safe-area-inset-right))] bottom-[calc(1rem+env(safe-area-inset-bottom))] z-[255]">
         <button
           onClick={toggle}
           className="flex items-center gap-3 rounded-full bg-black/60 text-white px-3 py-2 border border-white/10 shadow-lg hover:scale-105 transform transition focus:outline-none focus:ring-2 focus:ring-white/30"

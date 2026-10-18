@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import CircleArrowDown from "./components/icons/CircleArrowDown";
@@ -9,19 +9,18 @@ import ResumeAction from "./sections/ResumeAction";
 import HeroText from "./sections/HeroText";
 import Final from "./sections/Final";
 import AudioPlayer from "./components/AudioPlayer";
+import InstallPrompt from "./components/InstallPrompt";
 
 
 
 
 function App() {
   let [showContent, setShowContent] = useState(false);
-  const [showMobilePrompt, setShowMobilePrompt] = useState(false);
-  const MOBILE_PROMPT_KEY = "gc_mobile_prompt_dismissed";
   useGSAP(() => {
     // Delay the intro animation until fonts and key image are ready to avoid layout shift
     let killed = false;
     const startIntro = async () => {
-      try { await (document.fonts?.ready || Promise.resolve()); } catch {}
+      try { await (document.fonts?.ready || Promise.resolve()); } catch { /* fonts API unavailable */ }
       // pre-decode hero image
       await new Promise((resolve) => {
         const img = new Image();
@@ -159,27 +158,6 @@ function App() {
 
     return () => mm.revert();
   }, [showContent]);
-
-  // Show a one-time mobile prompt after intro completes
-  useEffect(() => {
-    if (!showContent) return;
-    const dismissed = localStorage.getItem(MOBILE_PROMPT_KEY) === "1";
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    if (isMobile && !dismissed) setShowMobilePrompt(true);
-
-    const onResize = () => {
-      const nowMobile = window.matchMedia("(max-width: 767px)").matches;
-      const isDismissed = localStorage.getItem(MOBILE_PROMPT_KEY) === "1";
-      setShowMobilePrompt(nowMobile && !isDismissed);
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [showContent]);
-
-  const dismissMobilePrompt = (persist = false) => {
-    setShowMobilePrompt(false);
-    if (persist) localStorage.setItem(MOBILE_PROMPT_KEY, "1");
-  };
 
   return (
     <>
@@ -327,46 +305,11 @@ function App() {
       {/* persistent audio player */}
       <AudioPlayer />
     </div>
-       
+
       )}
 
-      {showContent && showMobilePrompt && (
-        <div className="fixed inset-0 z-[200] flex items-end md:items-center justify-center p-4">
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => dismissMobilePrompt(false)}
-          />
-          <div className="relative z-10 w-full max-w-sm rounded-2xl bg-zinc-900 text-white shadow-2xl ring-1 ring-white/10 p-5 md:p-6">
-            <div className="flex items-start gap-3">
-              <div className="shrink-0 mt-0.5">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10">💡</span>
-              </div>
-              <div className="grow">
-                <h3 className="text-lg font-semibold">Best viewed on desktop</h3>
-                <p className="mt-1 text-sm text-zinc-300">
-                  For the full cinematic experience, view this page on a desktop. On mobile, you can also use your browser’s “Request desktop site”.
-                </p>
-                <div className="mt-4 flex items-center gap-2">
-                  <button
-                    onClick={() => dismissMobilePrompt(false)}
-                    className="px-4 py-2 rounded-lg bg-white text-black text-sm font-medium hover:bg-zinc-200 transition"
-                  >
-                    Keep browsing
-                  </button>
-                  <button
-                    onClick={() => dismissMobilePrompt(true)}
-                    className="px-4 py-2 rounded-lg bg-zinc-800 border border-white/15 text-sm hover:bg-zinc-700 transition"
-                  >
-                    Don’t show again
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-   
-      )}
+      {/* PWA install / add-to-home-screen prompt */}
+      <InstallPrompt />
     </>
   );
 }

@@ -6,29 +6,29 @@ const HeroText = () => {
   const slides = useMemo(
     () => [
       {
-        bg: "/images/hero-bg.webp",
-        href: "https://example.com/project-1",
+        bg: "/images/learncraft-live.webp",
+        href: "https://www.learncraft.live/",
         title: (
           <>
-            creating <br /> the <br /> Future
+            Showcasing <br /> Project <br /> LearnCraft Live
           </>
         ),
       },
       {
-        bg: "/images/gta-bg-v3.webp",
-        href: "https://example.com/project-2",
+        bg: "/images/CareerShot.webp",
+        href: "https://github.com/ANAMASGARD/CareerShot",
         title: (
           <>
-            Coming <br /> May 26th <br /> 2026
+             Showcasing <br />  Project <br /> CareerShot
           </>
         ),
       },
       {
-        bg: "/images/gta-bg-v3.webp",
-        href: "https://example.com/project-2",
+        bg: "/images/audio-analyzer.webp",
+        href: "https://voice-tell.vercel.app/",
         title: (
           <>
-            Coming <br /> May 26th <br /> 2026
+            Audio <br /> Analyzer <br /> project 
           </>
         ),
       },
@@ -131,8 +131,8 @@ const HeroText = () => {
             ))}
             {/* Platform logos under text */}
             <div className="relative mt-10 flex justify-center gap-8">
-              <img src="/images/play.svg" alt="Play" className="md:w-32 w-20" />
-              <img src="/images/logo18.png" alt="Brand" className="md:w-40 w-28" />
+              {/* <img src="/images/play.svg" alt="Play" className="md:w-32 w-20" />
+              <img src="/images/logo18.png" alt="Brand" className="md:w-40 w-28" /> */}
             </div>
           </div>
         </div>
