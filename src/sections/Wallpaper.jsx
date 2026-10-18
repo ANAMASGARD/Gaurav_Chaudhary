@@ -67,11 +67,21 @@ const Wallpaper = ({ active }) => {
           />
         </div>
 
-        <div className="absolute bottom-3 right-3 md:bottom-5 md:right-5 z-8 pointer-events-none select-none">
+        <div className="absolute bottom-3 left-3 md:bottom-5 md:left-5 z-8 pointer-events-none select-none">
           <img
             src="/images/gta-radar.webp"
             alt="GTA radar"
-            className="w-[clamp(110px,20vw,220px)] h-auto drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
+            className="w-[clamp(58px,10.5vw,116px)] h-auto drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+        <div className="absolute bottom-3 right-3 md:bottom-5 md:right-5 z-8 pointer-events-none select-none">
+          <img
+            src="/images/weapon-wheel.webp"
+            alt="Weapon wheel"
+            className="w-[clamp(140px,22vw,240px)] h-auto drop-shadow-[0_8px_16px_rgba(0,0,0,0.45)]"
             loading="eager"
             decoding="async"
           />
@@ -92,7 +102,7 @@ const Wallpaper = ({ active }) => {
             className={`text hero-name font-pricedown flex flex-col gap-2 md:gap-3 absolute top-[8%] md:top-20 left-1/2 -translate-x-1/2 md:scale-120 scale-100 -rotate-8 md:-rotate-10 pointer-events-none ${classic ? "is-filled" : ""}`}
           >
             <h1
-              className={`text-[clamp(3rem,12vw,12rem)] leading-none text-center ${classic ? "-ml-8 md:-ml-40" : "-translate-x-[15.5vw] md:-translate-x-[23.5vw]"}`}
+              className={`text-[clamp(3rem,12vw,12rem)] leading-none text-center ${classic ? "-ml-8 md:-ml-40" : "translate-x-[-15.5vw] md:translate-x-[-23.5vw]"}`}
             >
               gaurav
             </h1>

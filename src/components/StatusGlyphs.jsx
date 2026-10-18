@@ -45,6 +45,12 @@ export const XGlyph = () => (
   </Glyph>
 );
 
+export const YoutubeGlyph = () => (
+  <Glyph>
+    <path d="M23.5 6.2a3 3 0 0 0-2.11-2.12C19.55 3.5 12 3.5 12 3.5s-7.55 0-9.39.58A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.11 2.12c1.84.58 9.39.58 9.39.58s7.55 0 9.39-.58a3 3 0 0 0 2.11-2.12A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.75 15.02V8.98L15.82 12l-6.07 3.02z" />
+  </Glyph>
+);
+
 export const WifiGlyph = () => (
   <Glyph>
     <path d="M12 18.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5zm-3.89-2.14a5.5 5.5 0 0 1 7.78 0l-1.41 1.41a3.5 3.5 0 0 0-4.95 0l-1.42-1.41zm-2.82-2.83a9.5 9.5 0 0 1 13.43 0l-1.41 1.42a7.5 7.5 0 0 0-10.6 0L5.29 13.28zM2.46 10.45a13.5 13.5 0 0 1 19.08 0l-1.41 1.41a11.5 11.5 0 0 0-16.26 0L2.46 10.45z" />
@@ -54,6 +60,7 @@ export const WifiGlyph = () => (
 export const statusGlyphs = {
   mail: MailGlyph,
   github: GithubGlyph,
+  youtube: YoutubeGlyph,
   linkedin: LinkedinGlyph,
   x: XGlyph,
 };

@@ -54,7 +54,7 @@ const WindowWrapper = (Component, windowKey) => {
     useGSAP(() => {
       const el = ref.current;
       if (!el || !isOpen || minimized) return;
-      el.style.display = "block";
+      el.style.display = "";
       gsap.fromTo(
         el,
         { scale: 0.92, opacity: 0, y: 24 },

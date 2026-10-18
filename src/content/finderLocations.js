@@ -8,10 +8,8 @@ const WORK_LOCATION = {
     {
       id: 5,
       name: "LearnCraft Live",
-      icon: "/images/folder.svg",
+      icon: "/images/folders/folder-code.svg",
       kind: "folder",
-      position: "top-10 left-5",
-      windowPosition: "top-[8vh] left-5 md:left-10",
       children: [
         {
           id: 1,
@@ -19,7 +17,6 @@ const WORK_LOCATION = {
           icon: "/images/txt.svg",
           kind: "file",
           fileType: "txt",
-          position: "top-5 left-10",
           description: [
             "LearnCraft Live is an interactive learning experience built for live sessions and engagement.",
             "It combines modern frontend patterns with a bold, memorable UI.",
@@ -33,7 +30,6 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "url",
           href: "https://www.learncraft.live/",
-          position: "top-10 right-20",
         },
         {
           id: 3,
@@ -41,7 +37,6 @@ const WORK_LOCATION = {
           icon: "/images/image.svg",
           kind: "file",
           fileType: "img",
-          position: "top-40 left-40",
           imageUrl: "/images/learncraft-live.webp",
         },
       ],
@@ -49,10 +44,8 @@ const WORK_LOCATION = {
     {
       id: 6,
       name: "CareerShot",
-      icon: "/images/folder.svg",
+      icon: "/images/folders/folder-projects.svg",
       kind: "folder",
-      position: "top-52 left-5 md:left-80",
-      windowPosition: "top-[18vh] left-5 md:left-10",
       children: [
         {
           id: 1,
@@ -60,7 +53,6 @@ const WORK_LOCATION = {
           icon: "/images/txt.svg",
           kind: "file",
           fileType: "txt",
-          position: "top-5 right-10",
           description: [
             "CareerShot helps shape resumes and career narratives with a developer-first workflow.",
             "Explore the repository for architecture and implementation details.",
@@ -73,7 +65,6 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "url",
           href: "https://github.com/ANAMASGARD/CareerShot",
-          position: "top-20 left-20",
         },
         {
           id: 3,
@@ -81,7 +72,6 @@ const WORK_LOCATION = {
           icon: "/images/image.svg",
           kind: "file",
           fileType: "img",
-          position: "top-40 left-10",
           imageUrl: "/images/CareerShot.webp",
         },
       ],
@@ -89,10 +79,8 @@ const WORK_LOCATION = {
     {
       id: 7,
       name: "Audio Analyzer",
-      icon: "/images/folder.svg",
+      icon: "/images/folders/folder-music.svg",
       kind: "folder",
-      position: "top-10 right-5 md:left-40",
-      windowPosition: "top-[28vh] left-5 md:left-10",
       children: [
         {
           id: 1,
@@ -100,7 +88,6 @@ const WORK_LOCATION = {
           icon: "/images/txt.svg",
           kind: "file",
           fileType: "txt",
-          position: "top-5 left-10",
           description: [
             "Voice Tell is an audio analyzer project — upload or stream audio and inspect it in the browser.",
             "Built for clarity, speed, and a polished UX.",
@@ -113,7 +100,6 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "url",
           href: "https://voice-tell.vercel.app/",
-          position: "top-10 right-20",
         },
         {
           id: 3,
@@ -121,7 +107,6 @@ const WORK_LOCATION = {
           icon: "/images/image.svg",
           kind: "file",
           fileType: "img",
-          position: "top-40 right-10",
           imageUrl: "/images/audio-analyzer.webp",
         },
       ],
@@ -142,7 +127,6 @@ const ABOUT_LOCATION = {
       icon: "/images/image.svg",
       kind: "file",
       fileType: "img",
-      position: "top-10 left-5",
       imageUrl: "/images/gaurav-gta6-v2.webp",
     },
     {
@@ -151,7 +135,6 @@ const ABOUT_LOCATION = {
       icon: "/images/txt.svg",
       kind: "file",
       fileType: "txt",
-      position: "top-40 left-40",
       subtitle: "Gaurav Chaudhary",
       image: "/images/gaurav-gta6-v2.webp",
       description: [
@@ -176,7 +159,6 @@ const RESUME_LOCATION = {
       icon: "/images/image.svg",
       kind: "file",
       fileType: "img",
-      position: "top-10 left-10",
       imageUrl: "/images/resume.webp",
     },
   ],

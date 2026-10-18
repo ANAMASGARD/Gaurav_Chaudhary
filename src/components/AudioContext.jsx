@@ -10,32 +10,8 @@ export function AudioProvider({ src = "/music/gta-music.mp3", children }) {
     const audio = audioRef.current;
     if (!audio) return;
     audio.loop = true;
-    audio.muted = true;
     audio.volume = 0.8;
-
-    audio
-      .play()
-      .then(() => {
-        try {
-          audio.muted = false;
-        } catch {
-          /* ignore */
-        }
-        setIsPlaying(true);
-      })
-      .catch(() => {
-        setIsPlaying(false);
-        const onFirstInteraction = () => {
-          try {
-            audio.muted = false;
-          } catch {
-            /* ignore */
-          }
-          audio.play().then(() => setIsPlaying(true)).catch(() => {});
-          window.removeEventListener("pointerdown", onFirstInteraction);
-        };
-        window.addEventListener("pointerdown", onFirstInteraction, { once: true });
-      });
+    audio.muted = false;
   }, []);
 
   const toggle = useCallback(async () => {
@@ -46,6 +22,7 @@ export function AudioProvider({ src = "/music/gta-music.mp3", children }) {
       setIsPlaying(false);
     } else {
       try {
+        audio.muted = false;
         await audio.play();
         setIsPlaying(true);
       } catch {

@@ -31,9 +31,9 @@ const MenuBar = () => {
             aria-label="Open menu"
             onClick={() => setMenuOpen((v) => !v)}
           >
-            <img src="/images/linux.png" alt="Linux" className="hero-menu-linux" />
+            <img src="/images/health-hud.png" alt="" className="hero-menu-health" />
           </button>
-          <img src="/images/linux.png" alt="" className="hero-menu-linux hidden md:block" />
+          <img src="/images/health-hud.png" alt="" className="hero-menu-health hidden md:block" />
         </div>
         <ul className="mac-menu-app-links">
           {navMenuLinks.map(({ id, name }) => (

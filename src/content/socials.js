@@ -12,6 +12,12 @@ export const menuBarSocials = [
     link: "https://github.com/ANAMASGARD",
   },
   {
+    id: "youtube",
+    label: "YouTube",
+    glyph: "youtube",
+    link: "https://www.youtube.com/@ANAMASGARD",
+  },
+  {
     id: "linkedin",
     label: "LinkedIn",
     glyph: "linkedin",

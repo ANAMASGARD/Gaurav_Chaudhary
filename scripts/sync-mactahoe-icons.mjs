@@ -25,7 +25,14 @@ const ICON_MAP = [
   { dest: "public/images/terminal.svg", remotePath: "src/apps/scalable/terminal.svg" },
   { dest: "public/images/trash.svg", remotePath: "src/places/scalable/user-trash.svg" },
   { dest: "public/images/notes.svg", remotePath: "src/apps/scalable/tomboy.svg" },
-  { dest: "public/images/folder.svg", remotePath: "src/places/scalable/folder.svg" },
+  { dest: "public/images/folder.svg", remotePath: "src/places/scalable/blue-folder.svg" },
+  { dest: "public/images/folders/folder.svg", remotePath: "src/places/scalable/blue-folder.svg" },
+  { dest: "public/images/folders/folder-code.svg", remotePath: "src/places/scalable/blue-folder-code.svg" },
+  { dest: "public/images/folders/folder-projects.svg", remotePath: "src/places/scalable/orange-folder-projects.svg" },
+  { dest: "public/images/folders/folder-music.svg", remotePath: "src/places/scalable/purple-folder-music.svg" },
+  { dest: "public/images/folders/folder-documents.svg", remotePath: "src/places/scalable/green-folder-documents.svg" },
+  { dest: "public/images/folders/folder-images.svg", remotePath: "src/places/scalable/pink-folder-images.svg" },
+  { dest: "public/images/folders/folder-html.svg", remotePath: "src/places/scalable/yellow-folder-html.svg" },
   { dest: "public/images/txt.svg", remotePath: "src/mimes/scalable/text-x-generic.svg" },
   { dest: "public/images/pdf.svg", remotePath: "src/mimes/scalable/application-pdf.svg" },
   { dest: "public/images/image.svg", remotePath: "src/mimes/scalable/image-x-generic.svg" },
@@ -58,7 +65,6 @@ const ICON_MAP = [
 
 /** Grey / dark place icons (MacTahoe color-grey set) */
 const DARK_ICON_OVERRIDES = {
-  "public/images/folder.svg": "src/places/scalable/grey-folder-documents.svg",
   "public/images/trash.svg": "src/places/scalable/user-trash-dark.svg",
   "public/icons/trash.svg": "src/places/scalable/user-trash-dark.svg",
   "public/icons/work.svg": "src/places/scalable/grey-folder-documents.svg",
