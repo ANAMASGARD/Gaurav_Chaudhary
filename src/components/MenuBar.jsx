@@ -2,6 +2,7 @@ import { navMenuLinks } from "#apps/registry";
 import { useAudio } from "#components/AudioContext";
 import { menuBarSocials } from "#content/socials";
 import { SpeakerGlyph, statusGlyphs } from "#components/StatusGlyphs";
+import useWallpaperStore from "#store/wallpaper";
 import useWindowStore from "#store/windows";
 import useLocalClock from "../hooks/useLocalClock.js";
 import dayjs from "dayjs";
@@ -11,7 +12,7 @@ const MenuBar = () => {
   const { openWindow } = useWindowStore();
   const { isPlaying, toggle } = useAudio();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [switchOn, setSwitchOn] = useState(false);
+  const { classic, toggleClassic } = useWallpaperStore();
   const now = useLocalClock();
 
   const open = (id) => {
@@ -84,7 +85,11 @@ const MenuBar = () => {
               <li key="speaker">
                 <button
                   type="button"
-                  className={isPlaying ? "mac-status-link" : "mac-status-link is-muted"}
+                  className={
+                    isPlaying
+                      ? "mac-status-link mac-status-link--speaker"
+                      : "mac-status-link mac-status-link--speaker is-muted"
+                  }
                   aria-pressed={isPlaying}
                   aria-label={isPlaying ? "Stop soundtrack" : "Play soundtrack"}
                   onClick={toggle}
@@ -97,10 +102,10 @@ const MenuBar = () => {
           <li>
             <button
               type="button"
-              className={switchOn ? "mac-switch is-on" : "mac-switch"}
-              aria-pressed={switchOn}
-              aria-label={switchOn ? "Switch off" : "Switch on"}
-              onClick={() => setSwitchOn((on) => !on)}
+              className={classic ? "mac-switch is-on" : "mac-switch"}
+              aria-pressed={classic}
+              aria-label={classic ? "Show car wallpaper" : "Show classic wallpaper"}
+              onClick={toggleClassic}
             >
               <span className="mac-switch-knob" />
             </button>

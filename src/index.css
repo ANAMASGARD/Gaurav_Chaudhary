@@ -73,6 +73,22 @@ body {
   }
 }
 
+.hero-name {
+  color: transparent;
+  -webkit-text-stroke: clamp(1.25px, 0.28vw, 2.75px) #fff;
+  paint-order: stroke fill;
+  transition:
+    color 0.5s ease,
+    -webkit-text-stroke-width 0.5s ease,
+    -webkit-text-stroke-color 0.5s ease;
+}
+
+.hero-name.is-filled {
+  color: #fff;
+  -webkit-text-stroke-width: 0;
+  -webkit-text-stroke-color: transparent;
+}
+
 /* Hero chrome sits below macOS menu bar */
 .hero-chrome {
   top: calc(var(--mac-bar) + env(safe-area-inset-top, 0px));
@@ -193,7 +209,8 @@ body {
   }
 
   .mac-status-link {
-    @apply flex items-center justify-center size-5 border-0 bg-transparent p-0 text-white opacity-95 transition-opacity hover:opacity-70 cursor-pointer;
+    @apply flex items-center justify-center size-5 border-0 bg-transparent p-0 opacity-95 transition-opacity hover:opacity-70 cursor-pointer;
+    color: #0a0a0a;
   }
 
   .mac-status-link.is-muted {
@@ -202,6 +219,14 @@ body {
 
   .mac-status-link svg {
     @apply block size-4 fill-current;
+  }
+
+  .mac-status-link--speaker svg {
+    @apply size-[1.125rem];
+  }
+
+  .mac-status-link--speaker.is-muted {
+    opacity: 0.62;
   }
 
   .mac-switch {

@@ -1,7 +1,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import useWallpaperStore from "#store/wallpaper";
 
 const Wallpaper = ({ active }) => {
+  const classic = useWallpaperStore((s) => s.classic);
   useGSAP(() => {
     if (!active) return;
 
@@ -11,6 +13,7 @@ const Wallpaper = ({ active }) => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.8 } });
       gsap.set(".main .text", { x: 0 });
       tl.to(".main", { scale: 1, rotate: 0 }, 0)
+        .to(".wallpaper-car", { scale: 1, rotate: 0 }, 0)
         .to(".sky", { scale: 1.1, rotate: 0 }, 0)
         .to(".bg", { scale: 1.08, rotate: 0 }, 0)
         .to(".character", { rotate: 0 }, 0.1)
@@ -32,6 +35,7 @@ const Wallpaper = ({ active }) => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.6 } });
       gsap.set(".main .text", { x: 0 });
       tl.to(".main", { scale: 1, rotate: 0 }, 0)
+        .to(".wallpaper-car", { scale: 1, rotate: 0 }, 0)
         .to(".sky", { scale: 1.05, rotate: 0 }, 0)
         .to(".bg", { scale: 1.05, rotate: 0 }, 0)
         .to(".character", { rotate: 0 }, 0.1)
@@ -40,7 +44,9 @@ const Wallpaper = ({ active }) => {
     });
 
     mm.add("(prefers-reduced-motion: reduce)", () => {
-      gsap.set([".main", ".sky", ".bg", ".character", ".text"], { clearProps: "all" });
+      gsap.set([".main", ".wallpaper-car", ".sky", ".bg", ".character", ".text"], {
+        clearProps: "all",
+      });
     });
 
     return () => mm.revert();
@@ -73,20 +79,31 @@ const Wallpaper = ({ active }) => {
 
         <div className="imagesdiv relative overflow-hidden w-full h-dvh">
           <img
-            className="sky absolute scale-170 -rotate-3 bg top-0 left-0 w-full h-full object-cover transform-gpu will-change-transform"
+            className={`wallpaper-car absolute inset-0 size-full object-cover object-center transform-gpu will-change-transform transition-opacity duration-500 ${classic ? "opacity-0" : "opacity-100"}`}
+            src="/images/gaurav-bg-car.webp"
+            alt=""
+          />
+          <img
+            className={`sky absolute scale-170 -rotate-3 bg top-0 left-0 w-full h-full object-cover transform-gpu will-change-transform transition-opacity duration-500 ${classic ? "opacity-100" : "opacity-0"}`}
             src="/images/gta-bg-v3.webp"
             alt=""
           />
-          <div className="text text-white font-pricedown flex flex-col gap-2 md:gap-3 absolute top-[8%] md:top-20 left-1/2 -translate-x-1/2 md:scale-120 scale-100 -rotate-8 md:-rotate-10 pointer-events-none">
-            <h1 className="text-[clamp(3rem,12vw,12rem)] leading-none -ml-8 md:-ml-40 text-center">
+          <div
+            className={`text hero-name font-pricedown flex flex-col gap-2 md:gap-3 absolute top-[8%] md:top-20 left-1/2 -translate-x-1/2 md:scale-120 scale-100 -rotate-8 md:-rotate-10 pointer-events-none ${classic ? "is-filled" : ""}`}
+          >
+            <h1
+              className={`text-[clamp(3rem,12vw,12rem)] leading-none text-center ${classic ? "-ml-8 md:-ml-40" : "-translate-x-[15.5vw] md:-translate-x-[23.5vw]"}`}
+            >
               gaurav
             </h1>
-            <h1 className="text-[clamp(3rem,12vw,12rem)] leading-none ml-6 md:ml-20 text-center">
+            <h1
+              className={`text-[clamp(3rem,12vw,12rem)] leading-none text-center ${classic ? "ml-6 md:ml-20" : "translate-x-[8vw] md:translate-x-[12vw]"}`}
+            >
               chaudhary
             </h1>
           </div>
           <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none md:hidden"
+            className={`absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none md:hidden transition-opacity duration-500 ${classic ? "opacity-100" : "opacity-0"}`}
             style={{
               width: "clamp(340px, 92vw, 860px)",
               height: "clamp(24px, 5vh, 64px)",
@@ -96,7 +113,7 @@ const Wallpaper = ({ active }) => {
             }}
           />
           <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none hidden md:block"
+            className={`absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none hidden md:block transition-opacity duration-500 ${classic ? "opacity-100" : "opacity-0"}`}
             style={{
               width: "clamp(260px, 52vw, 980px)",
               height: "clamp(20px, 4vh, 60px)",
@@ -105,7 +122,9 @@ const Wallpaper = ({ active }) => {
               filter: "blur(2px)",
             }}
           />
-          <div className="character-wrap absolute left-0 right-0 bottom-0 flex justify-center items-end pointer-events-none">
+          <div
+            className={`character-wrap absolute left-0 right-0 bottom-0 flex justify-center items-end pointer-events-none transition-opacity duration-500 ${classic ? "opacity-100" : "opacity-0"}`}
+          >
             <img
               className="z-20 character -rotate-8 object-contain transform-gpu will-change-transform drop-shadow-[0_10px_30px_rgba(0,0,0,0.6)] h-[82vh] max-h-[92vh] w-auto max-w-[92vw] md:w-[clamp(320px,62vw,1100px)] md:h-auto md:max-h-[85vh]"
               src="/images/gaurav-gta6-v2.webp"

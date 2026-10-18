@@ -26,13 +26,13 @@ export const SpeakerGlyph = ({ muted = false }) => (
   <Glyph>
     <path d="M4 9.5v5h3.2L12 19.2V4.8L7.2 9.5H4z" />
     {muted ? (
-      <path d="M16 9.2 21.8 15m0-5.8L16 15" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="M16 9.2 21.8 15m0-5.8L16 15" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" />
     ) : (
       <path
         d="M15.2 9.1a4.2 4.2 0 0 1 0 5.8M17.6 6.6a7.4 7.4 0 0 1 0 10.8"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.7"
+        strokeWidth="2.25"
         strokeLinecap="round"
       />
     )}
