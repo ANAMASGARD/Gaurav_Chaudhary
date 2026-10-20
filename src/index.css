@@ -94,6 +94,32 @@ body {
   top: calc(var(--mac-bar) + env(safe-area-inset-top, 0px));
 }
 
+@media (max-width: 767px) {
+  .hero-wanted {
+    top: calc(var(--mac-bar) + env(safe-area-inset-top, 0px) + 0.15rem);
+  }
+
+  .hero-wanted-img {
+    width: clamp(64px, 18vw, 96px);
+  }
+
+  .hero-radar {
+    top: calc(var(--mac-bar) + env(safe-area-inset-top, 0px) + 0.15rem);
+  }
+
+  .hero-radar-img {
+    width: clamp(40px, 11vw, 52px);
+  }
+
+  .hero-title {
+    max-width: 96vw;
+  }
+
+  .hero-title-line {
+    letter-spacing: 0.02em;
+  }
+}
+
 @layer components {
   .mac-desktop-layer {
     @apply fixed inset-0 z-10 pointer-events-none;
@@ -187,12 +213,97 @@ body {
     @apply flex items-center justify-center shrink-0 min-w-11 min-h-11 overflow-visible rounded-lg hover:bg-white/10;
   }
 
-  .mac-mobile-menu {
-    @apply absolute top-full left-0 mt-1 flex flex-col rounded-xl bg-black/80 backdrop-blur-xl border border-white/10 p-2 z-200 min-w-40;
+  .mac-mobile-menu-backdrop {
+    @apply fixed inset-0 z-190 border-0 cursor-default p-0 pointer-events-auto;
+    background: rgba(0, 0, 0, 0.35);
   }
 
-  .mac-mobile-menu .hero-menu-resume-btn--menu:hover {
-    @apply bg-transparent;
+  .mac-mobile-menu-sheet {
+    @apply fixed left-3 right-3 z-200 flex flex-col rounded-2xl p-2 pointer-events-auto;
+    top: calc(var(--mac-bar) + env(safe-area-inset-top, 0px) + 0.35rem);
+    max-height: min(70dvh, 28rem);
+    overflow-y: auto;
+    background: rgba(28, 28, 30, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+  }
+
+  .mac-mobile-menu-row {
+    @apply flex items-center gap-3 w-full min-h-11 px-3 py-2.5 rounded-xl text-left text-sm font-medium text-white no-underline border-0 cursor-pointer touch-manipulation transition-colors;
+    background: transparent;
+  }
+
+  .mac-mobile-menu-row:hover,
+  .mac-mobile-menu-row:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .mac-mobile-menu-row-icon {
+    @apply flex items-center justify-center shrink-0 size-9 rounded-xl;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+  }
+
+  .mac-mobile-menu-row-icon svg {
+    @apply size-[1.125rem] fill-current;
+  }
+
+  .mac-mobile-menu-row-icon--resume {
+    font-family: var(--font-pricedown);
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  @media (max-width: 767px) {
+    .mac-menu-bar {
+      @apply gap-2 px-3;
+    }
+
+    .mac-menu-clock {
+      @apply text-[0.95rem] font-semibold tracking-wide text-white;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .mac-status-icons--mobile {
+      @apply gap-1;
+    }
+
+    .mac-status-icons--mobile > li {
+      @apply h-11 min-w-11;
+    }
+
+    .mac-status-icons--mobile .mac-status-link {
+      @apply min-h-11 min-w-11 flex items-center justify-center;
+      color: #fff;
+    }
+
+    .mobile-menu-toggle {
+      @apply flex flex-col items-center justify-center gap-[0.28rem] size-11 shrink-0 border-0 bg-transparent p-0 cursor-pointer touch-manipulation;
+    }
+
+    .mobile-menu-toggle span {
+      display: block;
+      width: 1.15rem;
+      height: 2px;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .mobile-menu-toggle.is-open span:nth-child(1) {
+      transform: translateY(0.42rem) rotate(45deg);
+    }
+
+    .mobile-menu-toggle.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-toggle.is-open span:nth-child(3) {
+      transform: translateY(-0.42rem) rotate(-45deg);
+    }
   }
 
   .mac-menu-right {
@@ -256,6 +367,59 @@ body {
     background: #111;
   }
 
+  .mobile-home {
+    @apply fixed z-20 pointer-events-none;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(calc(100dvw - 1.5rem), 22rem);
+    bottom: calc(5.85rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-home-grid {
+    @apply grid grid-cols-4 pointer-events-auto w-full;
+    justify-items: center;
+  }
+
+  .mobile-home-tile {
+    @apply flex flex-col items-center gap-1.5 w-full border-0 bg-transparent p-0 cursor-pointer touch-manipulation no-underline;
+  }
+
+  .mobile-home-icon {
+    @apply flex items-center justify-center size-12 rounded-[1.05rem] text-white;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  .mobile-home-icon svg {
+    @apply size-[1.45rem] fill-current;
+  }
+
+  .mobile-home-icon--youtube {
+    background: #ff0033;
+  }
+
+  .mobile-home-icon--github {
+    background: #24292f;
+  }
+
+  .mobile-home-icon--linkedin {
+    background: #0a66c2;
+  }
+
+  .mobile-home-icon--x {
+    background: #111111;
+  }
+
+  .mobile-home-label {
+    @apply text-[0.6875rem] leading-none font-medium text-white text-center whitespace-nowrap;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  }
+
+  @media (max-height: 500px) and (orientation: landscape) {
+    .mobile-home {
+      display: none;
+    }
+  }
+
   #dock {
     @apply fixed left-1/2 -translate-x-1/2 z-50 select-none pointer-events-auto;
     bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
@@ -263,7 +427,7 @@ body {
   }
 
   .dock-container {
-    @apply relative flex items-end gap-3 md:gap-4 rounded-2xl px-3 py-2 overflow-visible;
+    @apply relative flex items-end gap-2.5 sm:gap-3 md:gap-4 rounded-2xl px-2.5 sm:px-3 py-2 overflow-visible;
     background: rgba(28, 28, 30, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
@@ -276,8 +440,38 @@ body {
   }
 
   .dock-icon {
-    @apply relative size-10 cursor-pointer shrink-0 border-0 bg-transparent p-0 touch-manipulation;
+    @apply relative size-9 sm:size-10 cursor-pointer shrink-0 border-0 bg-transparent p-0 touch-manipulation min-h-11 min-w-11 sm:min-h-0 sm:min-w-0;
     will-change: transform;
+  }
+
+  @media (max-width: 767px) {
+    #dock {
+      width: min(calc(100dvw - 1.5rem), 22rem);
+      max-width: none;
+    }
+
+    .dock-container {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      justify-items: center;
+      align-items: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .dock-item {
+      width: 100%;
+      align-items: center;
+    }
+
+    .dock-icon {
+      width: 2.75rem;
+      height: 2.75rem;
+      min-width: 0;
+      min-height: 0;
+    }
   }
 
   .dock-icon img {
@@ -384,9 +578,79 @@ body {
 
   @media (max-width: 767px) {
     .mac-window {
-      @apply fixed left-2 right-2 w-auto max-h-none;
+      @apply fixed left-2 right-2 w-auto max-h-none rounded-2xl;
       top: calc(var(--mac-bar) + env(safe-area-inset-top, 0px) + 0.25rem);
       bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .mac-window .mac-resize-handle {
+      display: none;
+    }
+
+    #window-header.window-drag-handle {
+      cursor: default;
+      touch-action: manipulation;
+      @apply py-2 px-2.5 gap-1.5 flex-wrap;
+    }
+
+    #window-header h2:not(.finder-toolbar-title) {
+      position: static;
+      transform: none;
+      max-width: none;
+      @apply flex-1 min-w-0 text-center text-sm truncate order-10 basis-full;
+    }
+
+    #window-header h2.mac-window-title-inline {
+      order: 5;
+      flex: 1 1 auto;
+      basis: auto;
+      min-width: 0;
+      text-align: center;
+    }
+
+    #finder #window-header h2.finder-toolbar-title {
+      position: static;
+      transform: none;
+      @apply flex-1 min-w-0 text-left text-xs truncate order-none basis-auto;
+    }
+
+    #window-controls {
+      @apply gap-2.5;
+    }
+
+    #window-controls button {
+      @apply size-5;
+    }
+
+    .mac-window-body {
+      @apply px-3 py-3;
+    }
+
+    .finder-grid {
+      @apply gap-2;
+    }
+
+    .finder-grid-item {
+      @apply p-2;
+    }
+  }
+
+  @media (max-height: 500px) and (orientation: landscape) {
+    .mac-menu-bar {
+      height: calc(2.25rem + env(safe-area-inset-top, 0px));
+      padding-top: calc(0.15rem + env(safe-area-inset-top, 0px));
+    }
+
+    #dock {
+      bottom: calc(0.35rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .dock-container {
+      @apply py-1 px-2 gap-2;
+    }
+
+    .mac-window {
+      bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
     }
   }
 

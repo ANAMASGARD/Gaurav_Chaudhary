@@ -1,5 +1,5 @@
 import Dock from "#components/Dock";
-import DesktopIcons from "#components/DesktopIcons";
+import MobileHome from "#components/MobileHome";
 import MenuBar from "#components/MenuBar";
 import ContactWindow from "#windows/Contact";
 import FinderWindow from "#windows/Finder";
@@ -14,7 +14,7 @@ import TextWindow from "#windows/Text";
 const Desktop = () => (
   <div className="mac-desktop-layer mac-dark">
     <MenuBar />
-    <DesktopIcons />
+    <MobileHome />
     <div className="mac-window-layer pointer-events-none">
       <FinderWindow />
       <SafariWindow />

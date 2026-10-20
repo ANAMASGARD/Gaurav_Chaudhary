@@ -83,6 +83,9 @@ const useWindowStore = create(
       }),
     maximizeWindow: (windowKey) =>
       set((state) => {
+        if (typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
+          return;
+        }
         const win = state.windows[windowKey];
         if (!win?.isOpen) return;
         win.maximized = !win.maximized;

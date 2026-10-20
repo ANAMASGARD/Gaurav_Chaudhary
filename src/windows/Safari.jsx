@@ -17,12 +17,13 @@ const Safari = () => (
   <>
     <div id="window-header" className="window-drag-handle flex-wrap gap-2">
       <WindowControls target="safari" />
-      <PanelLeft className="ml-2 md:ml-10 icon hidden sm:block" aria-hidden />
+      <h2 className="mac-window-title-inline md:hidden">Live projects</h2>
+      <PanelLeft className="ml-2 md:ml-10 icon hidden md:block" aria-hidden />
       <div className="hidden md:flex items-center gap-1 ml-2">
         <ChevronLeft className="icon" aria-hidden />
         <ChevronRight className="icon" aria-hidden />
       </div>
-      <div className="flex-1 flex-center gap-3 min-w-0">
+      <div className="hidden md:flex flex-1 flex-center gap-3 min-w-0">
         <ShieldHalf className="icon hidden md:block" aria-hidden />
         <div className="search flex-1 min-w-0">
           <Search className="icon shrink-0" aria-hidden />

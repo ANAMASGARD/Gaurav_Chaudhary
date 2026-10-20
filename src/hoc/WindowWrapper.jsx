@@ -8,6 +8,9 @@ const RESIZE_EDGES = ["n", "s", "e", "w", "ne", "nw", "se", "sw"];
 const MIN_WIDTH = 280;
 const MIN_HEIGHT = 180;
 
+const isPhoneLayout = () =>
+  typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+
 const containingBlock = (el) => {
   let node = el.parentElement;
   while (node) {
@@ -80,6 +83,16 @@ const WindowWrapper = (Component, windowKey) => {
     useLayoutEffect(() => {
       const el = ref.current;
       if (!el) return;
+      if (isPhoneLayout()) {
+        el.style.left = "";
+        el.style.top = "";
+        el.style.width = "";
+        el.style.height = "";
+        el.style.position = "";
+        el.style.transform = "";
+        savedBox.current = null;
+        return;
+      }
       if (maximized) {
         if (!savedBox.current) {
           savedBox.current = {
@@ -116,7 +129,7 @@ const WindowWrapper = (Component, windowKey) => {
 
     useEffect(() => {
       const el = ref.current;
-      if (!el || !isOpen || minimized || maximized) return undefined;
+      if (!el || !isOpen || minimized || maximized || isPhoneLayout()) return undefined;
       const header = el.querySelector(".window-drag-handle");
       if (!header) return undefined;
 

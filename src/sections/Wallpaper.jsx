@@ -55,29 +55,29 @@ const Wallpaper = ({ active }) => {
   if (!active) return null;
 
   return (
-    <div className="main w-full -rotate-8 md:-rotate-10 scale-130 md:scale-160 fixed inset-0 z-0">
+    <div className="main w-full rotate-0 md:-rotate-10 scale-105 md:scale-160 fixed inset-0 z-0">
       <div className="landing overflow-hidden relative w-full h-dvh bg-black">
-        <div className="hero-chrome absolute right-5 z-8 pointer-events-none select-none">
+        <div className="hero-chrome hero-wanted absolute right-3 md:right-5 z-8 pointer-events-none select-none">
           <img
             src="/images/wanted-v2.webp"
             alt="Wanted level"
-            className="w-[clamp(90px,16vw,160px)] h-auto drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
+            className="hero-wanted-img w-[clamp(90px,16vw,160px)] h-auto drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
             loading="eager"
             decoding="async"
           />
         </div>
 
-        <div className="absolute bottom-3 left-3 md:bottom-5 md:left-5 z-8 pointer-events-none select-none">
+        <div className="hero-radar absolute z-8 pointer-events-none select-none left-3 md:bottom-5 md:left-5 bottom-auto md:top-auto">
           <img
             src="/images/gta-radar.webp"
             alt="GTA radar"
-            className="w-[clamp(58px,10.5vw,116px)] h-auto drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
+            className="hero-radar-img w-[clamp(44px,12vw,116px)] md:w-[clamp(58px,10.5vw,116px)] h-auto drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
             loading="eager"
             decoding="async"
           />
         </div>
 
-        <div className="absolute bottom-3 right-3 md:bottom-5 md:right-5 z-8 pointer-events-none select-none">
+        <div className="hero-weapon-wheel hidden sm:block absolute bottom-3 right-3 md:bottom-5 md:right-5 z-8 pointer-events-none select-none">
           <img
             src="/images/weapon-wheel.webp"
             alt="Weapon wheel"
@@ -99,15 +99,15 @@ const Wallpaper = ({ active }) => {
             alt=""
           />
           <div
-            className={`text hero-name font-pricedown flex flex-col gap-2 md:gap-3 absolute top-[8%] md:top-20 left-1/2 -translate-x-1/2 md:scale-120 scale-100 -rotate-8 md:-rotate-10 pointer-events-none ${classic ? "is-filled" : ""}`}
+            className={`text hero-name hero-title font-pricedown flex flex-col gap-1 md:gap-3 absolute left-1/2 -translate-x-1/2 pointer-events-none max-md:top-[38%] md:top-20 max-md:scale-100 md:scale-120 max-md:rotate-0 md:-rotate-10 ${classic ? "is-filled" : ""}`}
           >
             <h1
-              className={`text-[clamp(3rem,12vw,12rem)] leading-none text-center ${classic ? "-ml-8 md:-ml-40" : "translate-x-[-15.5vw] md:translate-x-[-23.5vw]"}`}
+              className={`hero-title-line text-[clamp(2.35rem,11vw,12rem)] md:text-[clamp(3rem,12vw,12rem)] leading-none text-center ${classic ? "max-md:ml-0 -ml-8 md:-ml-40" : "max-md:translate-x-0 translate-x-[-15.5vw] md:translate-x-[-23.5vw]"}`}
             >
               gaurav
             </h1>
             <h1
-              className={`text-[clamp(3rem,12vw,12rem)] leading-none text-center ${classic ? "ml-6 md:ml-20" : "translate-x-[8vw] md:translate-x-[12vw]"}`}
+              className={`hero-title-line text-[clamp(2.35rem,11vw,12rem)] md:text-[clamp(3rem,12vw,12rem)] leading-none text-center ${classic ? "max-md:ml-0 ml-6 md:ml-20" : "max-md:translate-x-0 translate-x-[8vw] md:translate-x-[12vw]"}`}
             >
               chaudhary
             </h1>

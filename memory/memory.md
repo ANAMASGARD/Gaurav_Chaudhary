@@ -4,63 +4,58 @@ Single-page portfolio: GTA-style hero wallpaper with a macOS-like desktop on top
 
 ## Shell
 
-- `src/App.jsx`: `AudioProvider` → `Intro` (GC mask) → `Wallpaper` (hero) → `Desktop` (sibling layer, not inside the transformed `.main`).
-- Hero: “gaurav / chaudhary”, Wanted badge always visible. **Radar** (`public/images/gta-radar.webp`, processed from `public/icons/Enlarged circular minimap overlay.png`, transparent corners) is **bottom left**, display width `clamp(58px, 10.5vw, 116px)` so the circle matches the old radar size. **Weapon wheel** (`public/images/weapon-wheel.webp`, from the transparent unarmed-fist PNG) is **bottom right**, about `clamp(140px, 22vw, 240px)`.
-- Desktop is empty. No folders, no Notes shortcut. Projects live in Finder only.
-- Dark chrome: `Desktop` wrapper class `mac-dark`. Styles in `src/index.css`.
+- `src/App.jsx`: `AudioProvider` → `Intro` → `Wallpaper` → `Desktop`. Reads `?open=<windowId>` after intro (valid ids in `WINDOW_IDS`), opens that window, then `replaceState` to clean URL. **No** install banner (`InstallPrompt` removed).
+- Hero: “gaurav / chaudhary”, Wanted badge. **Desktop:** radar bottom-left, weapon wheel bottom-right (`sm+`, hidden on very narrow phones). **Mobile:** radar top-left under bar; wanted smaller top-right; weapon wheel hidden below `640px`.
+- `MobileHome.jsx` (`md:hidden`): one centered row above the dock — YouTube, GitHub, LinkedIn, X. Brand-colored tiles with labels, fixed tile width so they stay aligned on 320–430px. Hidden in landscape when `max-height: 500px`.
+- Dark chrome: `Desktop` → `mac-dark`. Styles in `src/index.css`.
 
 ## Hero wallpaper toggle (`src/store/wallpaper.js`, `src/sections/Wallpaper.jsx`)
 
-- **Default (switch off):** car photo `/images/gaurav-bg-car.webp` (WebP). Full-bleed `object-cover`, class `wallpaper-car` (not `.sky`/`.bg` — no GSAP parallax crop on car).
-- **Classic (switch on):** GTA sky `gta-bg-v3.webp` + character `gaurav-gta6-v2.webp`. Crossfade ~500ms. `classic` is **not** persisted (every visit starts on car).
-- Menu-bar switch: `useWallpaperStore().toggleClassic` in `MenuBar.jsx`. Does **not** control audio.
+- **Default:** car `/images/gaurav-bg-car.webp`, `object-cover`, class `wallpaper-car` (no parallax crop).
+- **Classic:** sky `gta-bg-v3.webp` + character. Crossfade ~500ms. `classic` not persisted.
+- Menu switch: `toggleClassic` in `MenuBar.jsx`. Preload in `index.html` is the **car** image.
 
-## Hero title (`.hero-name` in `src/index.css`)
+## Hero title (`.hero-name`)
 
-- **Car wallpaper:** hollow white outline (`color: transparent`, `-webkit-text-stroke`), fill shows through.
-- **Classic wallpaper:** solid white (`.hero-name.is-filled`), toggled with `classic`.
-- **Car-only layout:** “gaurav” via `translate-x-[-15.5vw] md:translate-x-[-23.5vw]`; “chaudhary” via `translate-x-[8vw] md:translate-x-[12vw]`. Classic keeps `-ml-8 md:-ml-40` / `ml-6 md:ml-20`. Face stays visible; `v` slightly left of `h`.
+- Hollow on car; `.is-filled` solid white on classic.
+- **Desktop:** car offsets `translate-x-[-15.5vw]` / `translate-x-[8vw]` etc.
+- **Mobile (`max-md`):** smaller clamp, no car translate offsets, less main rotation/scale (`scale-105`, `rotate-0`). Title sits at `top: 38%` so it lands on the upper chest and the face stays clear.
 
 ## Menu bar (`src/components/MenuBar.jsx`)
 
-Three-column grid: left | centered clock | right.
+**Desktop (`md+`):** health HUD + Resume | clock | Email, GitHub, YouTube, LinkedIn, X, speaker, wallpaper switch. Social color `#0a0a0a`.
 
-- Left: **pink health HUD** (`public/images/health-hud.png`, cropped from `public/icons/Compact pink heart health HUD icon.png` with ~32px transparent margin so the heart circle is not clipped) then **resume** in Pricedown (`hero-menu-resume-btn`). Class `hero-menu-health`: height `1.35rem` / `1.55rem` desktop, `object-contain`, brand cluster has `overflow-visible` + slight vertical padding. Linux icon removed.
-- Center: live clock via `src/hooks/useLocalClock.js` (1s). dayjs `ddd, MMM D h:mm A`.
-- Right: Email, GitHub, **YouTube** (`https://www.youtube.com/@ANAMASGARD`), LinkedIn, X, **speaker**, **wallpaper switch**.
-  - Social glyphs: `src/content/socials.js` → `menuBarSocials`, `src/components/StatusGlyphs.jsx` (includes `YoutubeGlyph`). **Color:** `#0a0a0a` on `.mac-status-link`.
-  - Speaker: play/pause only; see audio section.
-  - Switch aria-labels: “Show classic wallpaper” / “Show car wallpaper”.
+**Mobile:** time centered (`h:mm A`). Right side: speaker + white **hamburger** (three bars; opens the glass sheet: Resume, Email, GitHub, YouTube, LinkedIn, X). A tap anywhere outside the sheet, or Escape, closes it. Wallpaper switch is desktop-only. Bottom row above the dock: YouTube (red), GitHub, LinkedIn (blue), X — brand tiles with labels, aligned with the dock.
 
-Menu bar background fully transparent.
+## Dock
 
-## Dock (`src/components/Dock.jsx`, `src/apps/registry.js`)
-
-Four icons: Finder → finder, App Store → safari (Projects), Notes → notes (Blogs), Calendar → contact (Experience). Photos not on dock. Hover label above icon; only hovered icon lifts. Icons `size-10`. `calendar.svg` is custom; exclude from `scripts/sync-mactahoe-icons.mjs`.
+Four apps: Finder, Projects (safari), Blogs (notes), Experience (contact). Mobile: slightly smaller icons, `min-h-11` touch targets, tighter gap.
 
 ## Windows
 
-- `src/hoc/WindowWrapper.jsx`: drag title bar; resize min 280×180; open animation sets `el.style.display = ""` (not `"block"`) so `.mac-window { display: flex }` layout holds (Finder footer/status).
-- **Traffic lights** (`WindowControls.jsx`): on the **right** of **every** window header (`#window-controls`: `order: 30`, `margin-left: auto`). Order: yellow minimize, green maximize, red close. Hover shows `−`, `+`, `×`.
-- Finder, Safari, Photos, Contact, Terminal, Resume, Notes, Text, Image.
+- **Desktop:** drag/resize, maximize, traffic lights on the **right** (yellow, green, red).
+- **Mobile (`max-width: 767px`):** full sheet between bar and dock; **no** drag/resize/maximize; larger traffic-light taps; in-flow titles (Safari shows “Live projects” in header); Finder hides view toggle below 420px width.
+- `WindowWrapper`: phone layout skips drag effect and clears inline position.
 
-## Finder (`src/windows/Finder.jsx`, `src/store/finder.js`)
+## Finder
 
-- **Look:** solid dark file pane `#161618`. **Toolbar** (`#finder #window-header.finder-toolbar`) solid black — “Work” area not glass. **Left sidebar only** is Tahoe glass (`backdrop-filter` blur + tint) from below toolbar to bottom; on md+ `#finder.mac-window` uses a gradient so only the right pane is opaque and wallpaper shows through the sidebar.
-- **Folder icons:** MacTahoe color places under `public/images/folders/` (code, projects, music, etc.). Sync script must not grey these with `--dark`.
-- **State:** history `navigate`/`goBack`/`goForward`, `viewMode` grid|list, `query`, `selectedId`.
-- **Interaction:** click select; double-click open (touch: single tap). Trash empty; search “No results”. Status “N items” at bottom of file pane (`mt-auto`).
-- Data: `src/content/finderLocations.js` (no absolute `position` fields).
+Tahoe glass sidebar (desktop), chips on mobile, MacTahoe folder icons, history/search/grid|list — unchanged core behavior.
 
-## Icons & audio
+## PWA (`vite.config.js`, `index.html`)
 
-- MacTahoe sync: `scripts/sync-mactahoe-icons.mjs --dark`; `public/macos-icons/ATTRIBUTION.md`.
-- `AudioContext.jsx`: `/music/gta-music.mp3`, loop, volume 0.8. **No autoplay** and no play-on-first-click — off until user clicks menu-bar speaker (toggle play/pause).
+- `vite-plugin-pwa`: `display: standalone`, `display_override`, manifest `id`, `lang`, **shortcuts** (`/?open=resume`, `/?open=safari`), **screenshots** in `public/screenshots/`.
+- Workbox precaches shell + listed hero/dock assets (webp/svg + selected png); `**/*.png` glob-ignored to skip huge `gta-bg-v4.png`; runtime cache for images/audio/video.
+- `index.html`: `viewport-fit=cover`, `color-scheme: dark`, apple/mobile meta, theme `#000000`.
+- Install via browser “Add to Home Screen” only — no in-app install UI.
+
+## Audio
+
+`/music/gta-music.mp3` — **no autoplay**; menu-bar speaker toggles play/pause.
 
 ## Dev ergonomics
 
-- `.vscode/settings.json`: `css.lint.unknownAtRules: ignore`, CSS files associated with Tailwind — clears false “Unknown @apply/@theme” Problems panel noise.
+`.vscode/settings.json` — Tailwind CSS lint for `@apply` / `@theme`.
 
-## Removed from hero
+## Removed
 
-White decorative bars and “Namaste” title removed from `Wallpaper.jsx`.
+Install prompt banner; empty `DesktopIcons` usage (replaced by `MobileHome` on phones).

@@ -18,17 +18,48 @@ export default defineConfig({
         'icons/apple-touch-icon.png',
       ],
       manifest: {
+        id: '/',
         name: 'Gaurav Chaudhary — Portfolio',
         short_name: 'Gaurav C.',
         description:
           'GTA-inspired interactive portfolio of Gaurav Chaudhary — projects, resume and more.',
+        lang: 'en',
         theme_color: '#000000',
         background_color: '#000000',
         display: 'standalone',
+        display_override: ['standalone', 'minimal-ui'],
         orientation: 'any',
         scope: '/',
         start_url: '/',
         categories: ['portfolio', 'personal'],
+        shortcuts: [
+          {
+            name: 'Resume',
+            short_name: 'Resume',
+            url: '/?open=resume',
+            icons: [{ src: '/icons/pwa-192x192.png', sizes: '192x192', type: 'image/png' }],
+          },
+          {
+            name: 'Projects',
+            short_name: 'Projects',
+            url: '/?open=safari',
+            icons: [{ src: '/icons/pwa-192x192.png', sizes: '192x192', type: 'image/png' }],
+          },
+        ],
+        screenshots: [
+          {
+            src: '/screenshots/mobile-narrow.png',
+            sizes: '390x844',
+            type: 'image/png',
+            form_factor: 'narrow',
+          },
+          {
+            src: '/screenshots/desktop-wide.png',
+            sizes: '1280x720',
+            type: 'image/png',
+            form_factor: 'wide',
+          },
+        ],
         icons: [
           {
             src: '/icons/pwa-192x192.png',
@@ -53,8 +84,34 @@ export default defineConfig({
       workbox: {
         // Precache the app shell + small static assets. Keep large media out of
         // the precache (handled by runtime caching below).
-        globPatterns: ['**/*.{js,css,html,svg,woff,woff2,ttf}'],
-        globIgnores: ['**/node_modules/**'],
+        globPatterns: ['**/*.{js,css,html,svg,woff,woff2,ttf,webp}'],
+        globIgnores: [
+          '**/node_modules/**',
+          '**/videos/**',
+          '**/*.png',
+          '**/images/gta-bg-v4.png',
+        ],
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+        additionalManifestEntries: [
+          { url: '/images/gaurav-bg-car.webp', revision: null },
+          { url: '/images/gta-bg-v3.webp', revision: null },
+          { url: '/images/gaurav-gta6-v2.webp', revision: null },
+          { url: '/images/gta-radar.webp', revision: null },
+          { url: '/images/weapon-wheel.webp', revision: null },
+          { url: '/images/wanted-v2.webp', revision: null },
+          { url: '/images/health-hud.png', revision: null },
+          { url: '/images/finder.svg', revision: null },
+          { url: '/images/appstore.svg', revision: null },
+          { url: '/images/notes.svg', revision: null },
+          { url: '/images/calendar.svg', revision: null },
+          { url: '/screenshots/mobile-narrow.png', revision: null },
+          { url: '/screenshots/desktop-wide.png', revision: null },
+          { url: '/icons/pwa-192x192.png', revision: null },
+          { url: '/icons/pwa-512x512.png', revision: null },
+          { url: '/icons/maskable-512x512.png', revision: null },
+          { url: '/icons/apple-touch-icon.png', revision: null },
+          { url: '/icons/favicon-64.png', revision: null },
+        ],
         navigateFallback: '/index.html',
         cleanupOutdatedCaches: true,
         clientsClaim: true,

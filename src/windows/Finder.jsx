@@ -181,7 +181,7 @@ const Finder = () => {
         </div>
         <h2 className="finder-toolbar-title">{activeLocation?.name ?? "Finder"}</h2>
         <div className="finder-toolbar-actions">
-          <div className="finder-view-toggle flex">
+          <div className="finder-view-toggle hidden min-[420px]:flex">
             <button
               type="button"
               className={clsx("finder-view-btn", viewMode === "grid" && "is-active")}
